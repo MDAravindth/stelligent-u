@@ -1,0 +1,35 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "This is simple template to create S3",
+    "Parameters": {
+        "S3Name": {
+            "Type": "String",
+            "Description": "Name of the S3Bucket",
+            "Default": "mys3buck"
+        }
+    },
+    "Resources": {
+        "S3Bucket": {
+            "Type": "AWS::S3::Bucket",
+            "Properties": {
+                "BucketName": {
+                    "Fn::Join" : [
+                        "", [
+                        { "Ref" : "AWS::AccountId" },
+                        { "Ref" : "S3Name" }
+                        ]
+                    ]
+                },
+                "AccessControl": "PublicRead"
+            }
+        }
+    },
+    "Outputs": {
+        "S3Output": {
+            "Description": "S3 created from this template",
+            "Value": {
+                "Ref": "S3Bucket"
+            }
+        }
+    }
+}
