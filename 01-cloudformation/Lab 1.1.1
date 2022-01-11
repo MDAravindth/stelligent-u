@@ -1,0 +1,19 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "This is simple template to create S3",
+    "Resources": {
+        "S3Bucket": {
+            "Type": "AWS::S3::Bucket",
+            "Properties": {
+                "BucketName": "mys3buck",
+                "AccessControl": "PublicRead"
+            }
+        }
+    },
+    "Outputs": {
+        "S3Output" : {
+            "Description" : "S3 created from this template",
+            "Value" : { "Ref" : "S3Bucket" }
+        }
+    }
+}
