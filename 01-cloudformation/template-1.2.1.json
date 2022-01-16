@@ -1,0 +1,51 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Parameters" : {
+      "Iamusername" : {
+          "Type" : "String",
+          "Default" : "Username"
+      }  
+    },
+    "Resources" : {
+        "Iamuser": {
+            "Type": "AWS::IAM::User",
+			"Properties": {
+				"UserName" : { "Ref" : "Iamusername" },
+				"ManagedPolicyArns": [
+                {
+                    "Ref": "Policy"
+                }
+            ]
+			}
+         },
+        "Policy": {
+            "Type": "AWS::IAM::ManagedPolicy",
+            "Properties": {
+				"PolicyDocument" : {
+					"Id": "Policy1641988437593",
+					"Version": "2012-10-17",
+					"Statement": [
+						{
+						"Sid": "Stmt1641988433415",
+						"Action": [
+							"s3:ListBucket"
+						],
+						"Effect": "Allow",
+						"Resource": "*"
+						}
+					]
+                }
+            }
+        }
+    },
+	"Outputs" : {
+		"PolicyArn" : {
+			"Value" : { "Ref" : "Policy" },
+			"Export" : {
+				"Name" : {
+					"Fn::Sub" : "${AWS::StackName}-Policy"
+				}
+			}
+		}
+	}
+}
